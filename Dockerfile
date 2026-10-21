@@ -2,16 +2,21 @@ FROM python:3.11-slim-bookworm AS build
 
 WORKDIR /opt/CTFd
 
-RUN sed -i 's@deb.debian.org@mirrors.aliyun.com@g' /etc/apt/sources.list.d/debian.sources && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends \
-        build-essential \
-        libffi-dev \
-        libssl-dev \
-        git && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    python -m venv /opt/venv
+RUN echo "deb http://mirrors.aliyun.com/debian bookworm main" > /etc/apt/sources.list.d/aliyun.list && \
+    echo "deb http://mirrors.aliyun.com/debian-security bookworm-security main" >> /etc/apt/sources.list.d/aliyun.list
+
+#Ubuntu 24.04
+
+# RUN sed -i 's@deb.debian.org@mirrors.aliyun.com@g' /etc/apt/sources.list.d/debian.sources && \
+#     apt-get update && \
+#     apt-get install -y --no-install-recommends \
+#         build-essential \
+#         libffi-dev \
+#         libssl-dev \
+#         git && \
+#     apt-get clean && \
+#     rm -rf /var/lib/apt/lists/* && \
+#     python -m venv /opt/venv
 
 # hadolint ignore=DL3008
 RUN apt-get update \

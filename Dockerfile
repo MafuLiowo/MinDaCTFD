@@ -50,6 +50,17 @@ FROM python:3.11-slim-bookworm AS release
 WORKDIR /opt/CTFd
 
 # hadolint ignore=DL3008
+RUN sed -i 's@deb.debian.org@mirrors.aliyun.com@g' /etc/apt/sources.list.d/debian.sources
+# RUN sed -i 's@deb.debian.org@mirrors.aliyun.com@g' /etc/apt/sources.list.d/debian.sources && \
+#     apt-get update && \
+#     apt-get install -y --no-install-recommends \
+#         build-essential \
+#         libffi-dev \
+#         libssl-dev \
+#         git && \
+#     apt-get clean && \
+#     rm -rf /var/lib/apt/lists/* && \
+#     python -m venv /opt/venv
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         libffi8 \

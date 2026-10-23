@@ -16,8 +16,8 @@ jobs:
              docker swarm init || true
              docker node update --label-add='name=linux-1' $(docker node ls -q)
 
-      - name: Build docker images and deploy 构建frps镜像并部署
-        run: docker compose -f "$GITHUB_WORKSPACE"/Frp-Docker-For-CTFd-Whale-double/docker-compose.yml up -d
+      # - name: Build docker images and deploy 构建frps镜像并部署
+      #   run: docker compose -f "$GITHUB_WORKSPACE"/Frp-Docker-For-CTFd-Whale-double/docker-compose.yml up -d
 
       - name: Frps build faild frps服务构建失败
         if: failure()

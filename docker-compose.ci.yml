@@ -69,6 +69,24 @@ services:
     networks:
         internal:
   
+  frps:
+    image: glzjin/frp:latest
+    restart: always
+    volumes:
+      - ./frp:/conf/          # 确保这个目录下有 frps.ini
+    entrypoint:
+      - /usr/local/bin/frps
+      - -c
+      - /conf/frps.ini
+    ports:
+      - "28000-28100:28000-28100"
+      - "8080:80"
+      - "6490:6490"
+    networks:
+      frp:
+        ipv4_address: 172.1.0.2
+      frp_containers:
+
   frpc:
     image: glzjin/frp:latest
     restart: always

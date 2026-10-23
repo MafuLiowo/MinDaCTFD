@@ -1,0 +1,42 @@
+name: CI
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build docker images and deploy 构建frps镜像并部署
+        run: docker compose up -d
+
+      - name: Build faild frps服务构建失败
+        if: failure()
+        run: docker compose logs --tail=200
+
+      - name: Build docker images and deploy 构建主镜像并部署
+        run: docker compose up -d
+
+      - name: Build faild 主服务构建失败
+        if: failure()
+        run: docker compose logs --tail=200
+
+      - name: Checkout 检查服务
+        run: |
+            for i in $(seq 1 30); do
+            if curl -fsS http://localhost:8000 > /dev/null 2>&1; then
+              echo "服务已就绪"
+              exit 0
+            fi
+              echo "第 $i 次检测失败，2 秒后重试..."
+              sleep 2
+              done
+              echo "靶场在 60 秒内未就绪，输出容器日志："
+              docker compose logs --tail=200
+              exit 1
+
+      

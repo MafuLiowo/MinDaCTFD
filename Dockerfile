@@ -42,7 +42,6 @@ RUN pip install -r requirements.txt
  RUN for d in CTFd/plugins/*; do \
          if [ -f "$d/requirements.txt" ]; then \
              pip install --no-cache-dir -r "$d/requirements.txt" \
-         fi; \
      done
 
 # RUN for d in CTFd/plugins/*; do \

@@ -34,9 +34,10 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 COPY . /opt/CTFd
 
-RUN pip install --no-cache-dir -r requirements.txt \
-    -i https://repo.huaweicloud.com/repository/pypi/simple/ \
-    --trusted-host repo.huaweicloud.com
+RUN pip install -r requirements.txt
+# RUN pip install --no-cache-dir -r requirements.txt \
+#     -i https://repo.huaweicloud.com/repository/pypi/simple/ \
+#     --trusted-host repo.huaweicloud.com
 
 RUN for d in CTFd/plugins/*; do \
         if [ -f "$d/requirements.txt" ]; then \

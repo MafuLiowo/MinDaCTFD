@@ -11,19 +11,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Init docker swarm 初始化docker swarm
+        run: |
+             docker swarm init || true
+             docker node update --label-add='name=linux-1' $(docker node ls -q)
+
       - name: Build docker images and deploy 构建frps镜像并部署
         run: docker compose -f "$GITHUB_WORKSPACE"/Frp-Docker-For-CTFd-Whale-double/docker-compose.yml up -d
+        with:
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
-      - name: Build faild frps服务构建失败
+      - name: Frps build faild frps服务构建失败
         if: failure()
         run: docker compose logs --tail=200
 
       - name: Build docker images and deploy 构建主镜像并部署
         run: docker compose up -d
 
-      - name: Build faild 主服务构建失败
+      - name: Main service build faild 主服务构建失败
         if: failure()
         run: docker compose logs --tail=200
+        with:
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Checkout 检查服务
         run: |

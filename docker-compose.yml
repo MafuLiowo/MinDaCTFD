@@ -68,7 +68,7 @@ services:
     image: glzjin/frp:latest
     restart: always
     volumes:
-      - ./frp:/conf/          # 确保这个目录下有 frps.ini
+      - ./frp:/conf/
     entrypoint:
       - /usr/local/bin/frps
       - -c
@@ -79,7 +79,7 @@ services:
       - "6490:6490"
     networks:
       frp:
-        ipv4_address: 172.1.0.2
+        ipv4_address: 172.1.0.4
       frp_containers:
 
   frpc:
@@ -91,6 +91,8 @@ services:
         - /usr/local/bin/frpc
         - -c
         - /conf/frpc.ini
+    depends_on:
+      - frps
     networks:
         frp:
             ipv4_address: 172.1.0.3

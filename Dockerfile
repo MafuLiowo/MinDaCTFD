@@ -2,8 +2,9 @@ FROM python:3.11-slim-bookworm AS build
 
 WORKDIR /opt/CTFd
 
-RUN echo "deb http://mirrors.aliyun.com/debian bookworm main" > /etc/apt/sources.list.d/aliyun.list && \
-    echo "deb http://mirrors.aliyun.com/debian-security bookworm-security main" >> /etc/apt/sources.list.d/aliyun.list
+# Ubuntu 22.04 or below
+# RUN echo "deb http://mirrors.aliyun.com/debian bookworm main" > /etc/apt/sources.list.d/aliyun.list && \
+#     echo "deb http://mirrors.aliyun.com/debian-security bookworm-security main" >> /etc/apt/sources.list.d/aliyun.list
 
 #Ubuntu 24.04
 
@@ -50,7 +51,10 @@ FROM python:3.11-slim-bookworm AS release
 WORKDIR /opt/CTFd
 
 # hadolint ignore=DL3008
-RUN sed -i 's@deb.debian.org@mirrors.aliyun.com@g' /etc/apt/sources.list.d/debian.sources
+
+#Ubuntu 22.04 or below
+# RUN sed -i 's@deb.debian.org@mirrors.aliyun.com@g' /etc/apt/sources.list.d/debian.sources
+#Ubuntu 24.04
 # RUN sed -i 's@deb.debian.org@mirrors.aliyun.com@g' /etc/apt/sources.list.d/debian.sources && \
 #     apt-get update && \
 #     apt-get install -y --no-install-recommends \

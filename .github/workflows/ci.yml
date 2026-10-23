@@ -27,7 +27,7 @@ jobs:
         run: docker compose logs --tail=200
 
       - name: Build docker images and deploy 构建主镜像并部署
-        run: docker compose up -d
+        run: docker compose -f "$GITHUB_WORKSPACE"/docker-compose.ci.yml up -d
 
       - name: Main service build faild 主服务构建失败
         if: failure()

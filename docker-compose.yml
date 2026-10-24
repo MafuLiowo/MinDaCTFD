@@ -78,6 +78,7 @@ services:
       - "8080:80"
       - "6490:6490"
     networks:
+      default:
       frp:
         ipv4_address: 172.1.0.4
       frp_containers:

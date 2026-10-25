@@ -27,7 +27,7 @@ stages:
         username: ""
         password: ""
         tag: "mafuli/mindactfd:${GITEE_PIPELINE_BUILD_NUMBER}"
-        dockerfile: ./Dockerfile
+        dockerfile: ./Dockerfile-mirror
         context: ""
         artifacts: []
         isCache: true

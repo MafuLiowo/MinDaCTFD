@@ -1,4 +1,4 @@
-FROM python:3.11-slim-bookworm AS build
+FROM docker.m.daocloud.io/library/python:3.11-slim-bookworm AS build
 
 WORKDIR /opt/CTFd
 
@@ -54,7 +54,7 @@ RUN for d in CTFd/plugins/*; do \
     done
 
 
-FROM python:3.11-slim-bookworm AS release
+FROM docker.m.daocloud.io/library/python:3.11-slim-bookworm AS release
 WORKDIR /opt/CTFd
 
 # hadolint ignore=DL3008

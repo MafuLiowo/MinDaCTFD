@@ -73,6 +73,8 @@ class FilesystemCacheProvider:
 
     def clear(self):
         cache.set(self.global_port_key, set())
+        cache.set(self.global_port_key_web, set())
+        cache.set(self.global_port_key_pwn, set())
         cache.set(self.global_network_key, set())
 
     def add_available_network_range(self, *ranges):

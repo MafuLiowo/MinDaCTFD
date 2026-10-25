@@ -18,8 +18,8 @@ def setup_default_configs():
         'frp_api_url': 'http://frpc:7400',
         'frp_http_port': '8080',
         'frp_http_domain_suffix': 'None',
-        'frp_direct_port_maximum': '28000',
-        'frp_direct_port_minimum': '28200',
+        'frp_direct_port_maximum': '28200',
+        'frp_direct_port_minimum': '28000',
         'template_http_subdomain': '{container.uuid}',
         'template_chall_flag': 'flag{{{uuid}}}',
     }.items():

@@ -33,7 +33,6 @@ class CacheProvider:
                     self.add_available_port_web(port)
                 if port in range(28101, 28201):
                     self.add_available_port_pwn(port)
-                self.add_available_port(port)
 
         from .docker import get_docker_client
         client = get_docker_client()

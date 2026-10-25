@@ -3,32 +3,32 @@ pipeline:
   triggers:
     push:
       branches:
-          - master
+        - master
       commitMessages:
         include:
           - '.*build.*'
 
   stages:
-   - stage:
-       name: Build
-       steps:
-         - step: build@docker
-           name: build-docker-example
-           displayName: 镜像构建
-           outParamsAlias:
-             GITEE_DOCKER_IMAGE: GITEE_DOCKER_IMAGE_0
+    - stage:
+        name: Build
+        steps:
+          - step: build@docker
+            name: build-docker-example
+            displayName: 镜像构建
+            outParamsAlias:
+              GITEE_DOCKER_IMAGE: GITEE_DOCKER_IMAGE_0
    # 可选项: cert, account
-           type: cert
-           certificate: "7747e140-b24c-013f-1ac7-5afaf2aa7bef"
-           repository: "registry.cn-hangzhou.aliyuncs.com"
-           username: ""
-           password: ""
-           tag: "mafuli/mindactfd:${GITEE_PIPELINE_BUILD_NUMBER}"
-           dockerfile: ./Dockerfile
-           context: ""
-           artifacts: []
-           isCache: true
-         #   可选项: amd64, arm64
-           processorType:
-             - amd64
-             - arm64
+            type: cert
+            certificate: "7747e140-b24c-013f-1ac7-5afaf2aa7bef"
+            repository: "registry.cn-hangzhou.aliyuncs.com"
+            username: ""
+            password: ""
+            tag: "mafuli/mindactfd:${GITEE_PIPELINE_BUILD_NUMBER}"
+            dockerfile: ./Dockerfile
+            context: ""
+            artifacts: []
+            isCache: true
+          #   可选项: amd64, arm64
+            processorType:
+              - amd64
+              - arm64

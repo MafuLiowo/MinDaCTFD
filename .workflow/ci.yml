@@ -1,24 +1,37 @@
-    - stage:
-        name: Build
-        displayName: CI2镜像构建
-        steps:
-          - step: build@docker
-            name: build-docker-example
-            displayName: CI3镜像构建
-            outParamsAlias:
-              GITEE_DOCKER_IMAGE: GITEE_DOCKER_IMAGE_0
+version: '1.0'
+Name: CI
+displayName: CI镜像构建
+triggers:
+  push:
+    branches:
+      include:
+        - '.*'
+  pr:
+    branches:
+      include:
+        - '.*'
+stages:
+  
+  - name: Build
+    displayName: CI2镜像构建
+    steps:
+      - step: build@docker
+        name: build-docker-example
+        displayName: 镜像构建
+        outParamsAlias:
+          GITEE_DOCKER_IMAGE: GITEE_DOCKER_IMAGE_0
    # 可选项: cert, account
-            type: cert
-            certificate: "7747e140-b24c-013f-1ac7-5afaf2aa7bef"
-            repository: "registry.cn-hangzhou.aliyuncs.com"
-            username: ""
-            password: ""
-            tag: "mafuli/mindactfd:${GITEE_PIPELINE_BUILD_NUMBER}"
-            dockerfile: ./Dockerfile
-            context: ""
-            artifacts: []
-            isCache: true
+        type: cert
+        certificate: "7747e140-b24c-013f-1ac7-5afaf2aa7bef"
+        repository: "registry.cn-hangzhou.aliyuncs.com"
+        username: ""
+        password: ""
+        tag: "mafuli/mindactfd:${GITEE_PIPELINE_BUILD_NUMBER}"
+        dockerfile: ./Dockerfile
+        context: ""
+        artifacts: []
+        isCache: true
           #   可选项: amd64, arm64
-            processorType:
-              - amd64
-              - arm64
+        processorType:
+          - amd64
+          - arm64

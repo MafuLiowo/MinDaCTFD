@@ -96,7 +96,10 @@ class FrpRouter(BaseRouter):
     def register(self, container: WhaleContainer):
         if container.challenge.redirect_type == 'direct':
             if not container.port:
-                port = CacheProvider(app=current_app).get_available_port()
+                if container.challenge.redirect_port == 80:
+                    port = CacheProvider(app=current_app).get_available_port_web()
+                if container.challenge.redirect_port != 80:
+                    port = CacheProvider(app=current_app).get_available_port_pwn()
                 if not port:
                     return False, 'No available ports. Please wait for a few minutes.'
                 container.port = port
@@ -111,6 +114,10 @@ class FrpRouter(BaseRouter):
         if container.challenge.redirect_type == 'direct':
             try:
                 redis_util = CacheProvider(app=current_app)
+                if container.challenge.redirect_port == 80:
+                    redis_util.add_available_port_web(container.port)
+                if container.challenge.redirect_port != 80:
+                    redis_util.add_available_port_pwn(container.port)
                 redis_util.add_available_port(container.port)
             except Exception as e:
                 logging.log(

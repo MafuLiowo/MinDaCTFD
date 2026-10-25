@@ -29,6 +29,10 @@ class CacheProvider:
         for port in range(int(get_config("whale:frp_direct_port_minimum", 28000)),
                           int(get_config("whale:frp_direct_port_maximum", 29000)) + 1):
             if port not in used_port_list:
+                if port in range(28000-28100):
+                    self.add_available_port_web(port)
+                if port in range(28101-28200):
+                    self.add_available_port_pwn(port)
                 self.add_available_port(port)
 
         from .docker import get_docker_client
@@ -63,6 +67,8 @@ class FilesystemCacheProvider:
         )
         self.key = 'ctfd_whale_lock-' + str(kwargs.get('user_id', 0))
         self.global_port_key = "ctfd_whale-port-set"
+        self.global_port_key_web = "ctfd_whale-port-set"
+        self.global_port_key_pwn = "ctfd_whale-port-set"
         self.global_network_key = "ctfd_whale-network-set"
 
     def clear(self):
@@ -83,16 +89,42 @@ class FilesystemCacheProvider:
         except KeyError:
             return None
 
+    def add_available_port_web(self, port):
+        h = cache.get(self.global_port_key_web)
+        h.add(port)
+        cache.set(self.global_port_key_web, h)
+    def add_available_port_pwn(self, port):
+        t = cache.get(self.global_port_key_pwn)
+        t.add(port)
+        cache.set(self.global_port_key_pwn, t)
+
     def add_available_port(self, port):
         s = cache.get(self.global_port_key)
         s.add(port)
         cache.set(self.global_port_key, s)
+
 
     def get_available_port(self):
         try:
             s = cache.get(self.global_port_key)
             r = s.pop()
             cache.set(self.global_port_key, s)
+            return r
+        except KeyError:
+            return None
+    def get_available_port_web(self):
+        try:
+            h = cache.get(self.global_port_key_web)
+            r = h.pop()
+            cache.set(self.global_port_key_web, h)
+            return r
+        except KeyError:
+            return None
+    def get_available_port_pwn(self):
+        try:
+            t = cache.get(self.global_port_key_pwn)
+            r = t.pop()
+            cache.set(self.global_port_key_pwn, t)
             return r
         except KeyError:
             return None
@@ -111,10 +143,14 @@ class RedisCacheProvider(FlaskRedis):
         self.key = 'ctfd_whale_lock-' + str(kwargs.get('user_id', 0))
         self.current_lock = None
         self.global_port_key = "ctfd_whale-port-set"
+        self.global_port_key_web = "ctfd_whale-port-set"
+        self.global_port_key_pwn = "ctfd_whale-port-set"
         self.global_network_key = "ctfd_whale-network-set"
 
     def clear(self):
         self.delete(self.global_port_key)
+        self.delete(self.global_port_key_web)
+        self.delete(self.global_port_key_pwn)
         self.delete(self.global_network_key)
 
     def add_available_network_range(self, *ranges):
@@ -125,9 +161,17 @@ class RedisCacheProvider(FlaskRedis):
 
     def add_available_port(self, port):
         self.sadd(self.global_port_key, str(port))
+    def add_available_port_web(self, port):
+            self.sadd(self.global_port_key_web, str(port))
+    def add_available_port_pwn(self, port):
+            self.sadd(self.global_port_key_pwn, str(port))
 
     def get_available_port(self):
         return int(self.spop(self.global_port_key))
+    def get_available_port_web(self):
+        return int(self.spop(self.global_port_key_web))
+    def get_available_port_pwn(self):
+        return int(self.spop(self.global_port_key_pwn))
 
     def acquire_lock(self):
         lock = self.lock(name=self.key, timeout=10)

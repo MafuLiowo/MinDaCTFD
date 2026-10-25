@@ -29,9 +29,9 @@ class CacheProvider:
         for port in range(int(get_config("whale:frp_direct_port_minimum", 28000)),
                           int(get_config("whale:frp_direct_port_maximum", 29000)) + 1):
             if port not in used_port_list:
-                if port in range(28000-28100):
+                if port in range(28000, 28100):
                     self.add_available_port_web(port)
-                if port in range(28101-28200):
+                if port in range(28101, 28201):
                     self.add_available_port_pwn(port)
                 self.add_available_port(port)
 
@@ -67,8 +67,8 @@ class FilesystemCacheProvider:
         )
         self.key = 'ctfd_whale_lock-' + str(kwargs.get('user_id', 0))
         self.global_port_key = "ctfd_whale-port-set"
-        self.global_port_key_web = "ctfd_whale-port-set"
-        self.global_port_key_pwn = "ctfd_whale-port-set"
+        self.global_port_key_web = "ctfd_whale-port-set-web"
+        self.global_port_key_pwn = "ctfd_whale-port-set-pwn"
         self.global_network_key = "ctfd_whale-network-set"
 
     def clear(self):
@@ -143,8 +143,8 @@ class RedisCacheProvider(FlaskRedis):
         self.key = 'ctfd_whale_lock-' + str(kwargs.get('user_id', 0))
         self.current_lock = None
         self.global_port_key = "ctfd_whale-port-set"
-        self.global_port_key_web = "ctfd_whale-port-set"
-        self.global_port_key_pwn = "ctfd_whale-port-set"
+        self.global_port_key_web = "ctfd_whale-port-set-web"
+        self.global_port_key_pwn = "ctfd_whale-port-set-pwn"
         self.global_network_key = "ctfd_whale-network-set"
 
     def clear(self):

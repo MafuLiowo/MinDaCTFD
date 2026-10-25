@@ -11,10 +11,11 @@ pipeline:
   stages:
     - stage:
         name: Build
+        displayName: CI2镜像构建
         steps:
           - step: build@docker
             name: build-docker-example
-            displayName: 镜像构建
+            displayName: CI3镜像构建
             outParamsAlias:
               GITEE_DOCKER_IMAGE: GITEE_DOCKER_IMAGE_0
    # 可选项: cert, account

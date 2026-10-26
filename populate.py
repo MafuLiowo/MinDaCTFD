@@ -235,7 +235,7 @@ if __name__ == "__main__":
         if mode == "users":
             for x in range(USER_AMOUNT):
                 used = []
-                base_time = datetime.datetime.utcnow() + datetime.timedelta(
+                base_time = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(
                     minutes=-10000
                 )
                 for y in range(random.randint(1, CHAL_AMOUNT)):

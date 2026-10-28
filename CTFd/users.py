@@ -15,6 +15,7 @@ users = Blueprint("users", __name__)
 
 @users.route("/users")
 @check_account_visibility
+@authed_only
 def listing():
     q = request.args.get("q")
     field = request.args.get("field", "name")
@@ -69,6 +70,7 @@ def private():
 @users.route("/users/<int:user_id>")
 @check_account_visibility
 @check_score_visibility
+@authed_only
 def public(user_id):
     infos = get_infos()
     errors = get_errors()

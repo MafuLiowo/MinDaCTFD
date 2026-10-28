@@ -87,7 +87,7 @@
                             <td><a href="{{ url_for('user_detail', user_id=team.teamid) }}">{{ team.name }}</a></td>
                             <td>{{ team.score }}</td>
                             <td>{{ team.solve_count }}</td>
-                            <td>{{ team.last_solve_time or '-' }}</td>
+                            <td data-time="{{ team.last_solve_time_iso }}" data-time-format="YYYY-MM-DD HH:mm:ss">{{ team.last_solve_time or '-' }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -98,6 +98,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{{ request.script_root }}/themes/{{ theme }}/static/js/utils.js"></script>
 <script src="{{ request.script_root }}/matrix/static/scoreboard-matrix.js"></script>
 {% endblock %}

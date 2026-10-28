@@ -12,7 +12,35 @@ from CTFd.utils.config.visibility import challenges_visible, scores_visible
 from CTFd.utils.dates import (
     ctf_started, ctftime, view_after_ctf, unix_time_to_utc
 )
+from zoneinfo import ZoneInfo
+from datetime import timedelta, timezone
 from CTFd.utils.user import is_admin, authed, get_current_user  # 新增：获取当前用户
+
+
+try:
+    # 展示用目标时区:优先环境变量 TZ,没有就用北京时间
+    DISPLAY_TZ = ZoneInfo(os.getenv("TZ") or "Asia/Shanghai")
+except Exception:
+    # 镜像里缺 tzdata 时兜底:固定 +8(中国无夏令时,与 Asia/Shanghai 等价)
+    DISPLAY_TZ = timezone(timedelta(hours=8), "Asia/Shanghai")
+
+
+def _fmt_time(dt, fmt="%Y-%m-%d %H:%M:%S"):
+    """库里存的是 naive UTC,展示时转成 DISPLAY_TZ(默认北京时间)。"""
+    if not dt:
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(DISPLAY_TZ).strftime(fmt)
+
+
+def _iso_utc(dt):
+    """给前端的机器可读时间:naive UTC -> 带 Z 的 ISO8601(dayjs/new Date 可直接解析)。"""
+    if not dt:
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
 def load(app):
@@ -87,7 +115,8 @@ def load(app):
                     'name': name,
                     'score': score or 0,
                     'solve_count': solve_count,
-                    'last_solve_time': last_time.strftime('%Y-%m-%d %H:%M:%S') if last_time else None,
+                    'last_solve_time': _fmt_time(last_time),
+                    'last_solve_time_iso': _iso_utc(last_time),
                     'solves': solve_ids
                 })
             return result
@@ -127,7 +156,8 @@ def load(app):
                     'name': name,
                     'score': score or 0,
                     'solve_count': solve_count,
-                    'last_solve_time': last_time.strftime('%Y-%m-%d %H:%M:%S') if last_time else None,
+                    'last_solve_time': _fmt_time(last_time),
+                    'last_solve_time_iso': _iso_utc(last_time),
                     'solves': solve_ids
                 })
             return result
@@ -155,7 +185,8 @@ def load(app):
                 'chal_id': s[0],
                 'chal_name': s[1],
                 'category': s[2],
-                'solve_time': s[3].strftime('%Y-%m-%d %H:%M:%S')
+                'solve_time': _fmt_time(s[3]),
+                'solve_time_iso': _iso_utc(s[3])
             } for s in solves],
             'solve_count': len(solves)
         }
@@ -203,11 +234,12 @@ def load(app):
                 'team': s['name'],
                 'score': s['score'],
                 'solve_count': s['solve_count'],
-                'last_solve_time': s['last_solve_time']
+                'last_solve_time': s['last_solve_time'],
+                'last_solve_time_iso': s['last_solve_time_iso']
             } for s in standings]
         })
 
     # 注册路由
     app.view_functions['scoreboard.listing'] = scoreboard_view
-    app.view_functions['scoreboard.score'] = scores
+    app.add_url_rule('/scores', 'scoreboard.score', scores)  # 前端每 5 分钟自动刷新用
     app.add_url_rule('/user/<int:user_id>', 'user_detail', user_detail_view)  # 个人详情页路由

@@ -38,7 +38,7 @@
                                 <tr>
                                     <td>{{ solve.chal_name }}</td>
                                     <td>{{ solve.category }}</td>
-                                    <td>{{ solve.solve_time }}</td>
+                                    <td data-time="{{ solve.solve_time_iso }}" data-time-format="YYYY-MM-DD HH:mm:ss">{{ solve.solve_time }}</td>
                                 </tr>
                             {% else %}
                                 <tr><td colspan="3" class="text-center">暂无解题记录</td></tr>

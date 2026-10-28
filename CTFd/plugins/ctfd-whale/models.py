@@ -57,7 +57,7 @@ class WhaleContainer(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(None, db.ForeignKey("users.id"))
     challenge_id = db.Column(None, db.ForeignKey("challenges.id"))
-    start_time = db.Column(db.DateTime, nullable=False, default=utcnow())
+    start_time = db.Column(db.DateTime, nullable=False, default=utcnow)
     renew_count = db.Column(db.Integer, nullable=False, default=0)
     status = db.Column(db.Integer, default=1)
     uuid = db.Column(db.String(256))

@@ -9,7 +9,7 @@ from CTFd.models import UserTokens, db
 from CTFd.utils.encoding import hexencode
 from CTFd.utils.security.csrf import generate_nonce
 from CTFd.utils.security.signing import hmac
-
+from CTFd.time import utcnow
 
 def login_user(user):
     session["id"] = user.id
@@ -51,7 +51,7 @@ def generate_user_token(user, expiration=None, description=None):
 def lookup_user_token(token):
     token = UserTokens.query.filter_by(value=token).first()
     if token:
-        if datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))) >= token.expiration:
+        if utcnow() >= token.expiration:
             raise UserTokenExpiredException
         return token.user
     else:

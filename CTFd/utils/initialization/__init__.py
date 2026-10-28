@@ -19,6 +19,7 @@ from CTFd.utils.config import (
     integrations,
     is_setup,
 )
+from CTFd.time import utcnow
 from CTFd.utils.config.pages import get_pages
 from CTFd.utils.dates import isoformat, unix_time, unix_time_millis, unix_time_to_utc
 from CTFd.utils.events import EventManager, RedisEventManager
@@ -249,7 +250,7 @@ def init_request_processors(app):
                 ).first()
 
                 if track:
-                    track.date = datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC")))
+                    track.date = utcnow()
                 else:
                     track = Tracking(ip=get_ip(), user_id=session["id"])
                     db.session.add(track)

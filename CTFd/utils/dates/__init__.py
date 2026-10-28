@@ -40,6 +40,7 @@ def ctftime():
     return False
 
 
+
 def ctf_paused():
     return bool(get_config("paused"))
 

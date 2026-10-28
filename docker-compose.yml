@@ -1,6 +1,8 @@
 services:
   ctfd:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile-mirror
     user: root
     restart: always
     ports:

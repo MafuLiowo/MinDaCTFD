@@ -5,6 +5,7 @@ from CTFd.utils import get_config
 from .db import DBContainer, db
 from .docker import DockerUtils
 from .routers import Router
+from CTFd.time import utcnow
 import os
 from zoneinfo import ZoneInfo
 class ControlUtil:
@@ -49,8 +50,8 @@ class ControlUtil:
         timeout = int(get_config("whale:docker_timeout", "3600"))
         container.start_time = container.start_time + \
                                datetime.timedelta(seconds=timeout)
-        if container.start_time > datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))):
-            container.start_time = datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC")))
+        if container.start_time > utcnow():
+            container.start_time = utcnow()
             # race condition? useless maybe?
             # useful when docker_timeout < poll timeout (10 seconds)
             # doesn't make any sense

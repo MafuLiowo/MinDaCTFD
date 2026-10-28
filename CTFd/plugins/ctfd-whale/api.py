@@ -3,6 +3,7 @@ import datetime
 from flask import request
 from flask_restx import Namespace, Resource, abort
 import os
+from CTFd.time import utcnow
 from CTFd.utils import get_config
 from CTFd.utils import user as current_user
 from CTFd.utils.decorators import admins_only, authed_only
@@ -86,7 +87,7 @@ class UserContainers(Resource):
                     "http://"+f"{get_config('whale:frp_direct_ip_address', '127.0.0.1')}:{container.port}"
                 ),
                 'user_access': Router.access(container),
-                'remaining_time': timeout - (datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))) - container.start_time).seconds,
+                'remaining_time': timeout - (utcnow() - container.start_time).seconds,
             }
         }
 

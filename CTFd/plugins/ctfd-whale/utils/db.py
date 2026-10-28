@@ -3,7 +3,7 @@ import datetime
 from CTFd.models import db
 from CTFd.utils import get_config
 from ..models import WhaleContainer, WhaleRedirectTemplate
-
+from CTFd.time import utcnow
 
 class DBContainer:
     @staticmethod
@@ -40,7 +40,7 @@ class DBContainer:
         q = db.session.query(WhaleContainer)
         q = q.filter(
             WhaleContainer.start_time <
-            datetime.datetime.now() - datetime.timedelta(seconds=timeout)
+            utcnow() - datetime.timedelta(seconds=timeout)
         )
         return q.all()
 
@@ -51,7 +51,7 @@ class DBContainer:
         q = db.session.query(WhaleContainer)
         q = q.filter(
             WhaleContainer.start_time >=
-            datetime.datetime.now() - datetime.timedelta(seconds=timeout)
+            utcnow() - datetime.timedelta(seconds=timeout)
         )
         return q.all()
 
@@ -67,7 +67,7 @@ class DBContainer:
         q = db.session.query(WhaleContainer)
         q = q.filter(
             WhaleContainer.start_time >=
-            datetime.datetime.now() - datetime.timedelta(seconds=timeout)
+            utcnow() - datetime.timedelta(seconds=timeout)
         )
         q = q.slice(page_start, page_end)
         return q.all()
@@ -79,7 +79,7 @@ class DBContainer:
         q = db.session.query(WhaleContainer)
         q = q.filter(
             WhaleContainer.start_time >=
-            datetime.datetime.now() - datetime.timedelta(seconds=timeout)
+            utcnow() - datetime.timedelta(seconds=timeout)
         )
         return q.count()
 

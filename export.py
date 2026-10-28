@@ -20,7 +20,7 @@ with app.app_context():
             shutil.copyfileobj(backup, target)
     else:
         ctf_name = config.ctf_name()
-        day = datetime.datetime.now(tz=os.getenv("TZ", "UTC")).strftime("%Y-%m-%d_%T")
+        day = utcnow().strftime("%Y-%m-%d_%T")
         full_name = "{}.{}.zip".format(ctf_name, day)
 
         with open(full_name, "wb") as target:

@@ -16,6 +16,7 @@ from sqlalchemy.engine.url import make_url
 from sqlalchemy.exc import IntegrityError, ProgrammingError
 from sqlalchemy.sql import sqltypes
 
+from CTFd.time import utcnow
 from CTFd import __version__ as CTFD_VERSION
 from CTFd.cache import cache
 from CTFd.constants.themes import DEFAULT_THEME
@@ -185,7 +186,7 @@ def import_ctf(backup, erase=True):
             "The version of CTFd that this backup is from is too old to be automatically imported."
         )
 
-    start_time = unix_time(datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))))
+    start_time = unix_time(utcnow())
 
     set_import_start_time(value=start_time, skip_print=True)
     set_import_end_time(value=None, skip_print=True)
@@ -472,7 +473,7 @@ def import_ctf(backup, erase=True):
 
     # Set config variables to mark import completed
     set_import_start_time(value=start_time, skip_print=True)
-    set_import_end_time(value=unix_time(datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC")))), skip_print=True)
+    set_import_end_time(value=unix_time(utcnow()), skip_print=True)
 
 
 def background_import_ctf(backup):

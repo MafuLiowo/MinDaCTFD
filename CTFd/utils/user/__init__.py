@@ -14,8 +14,7 @@ from CTFd.models import Fails, Teams, Tracking, Users, db
 from CTFd.utils import get_config
 from CTFd.utils.security.auth import logout_user
 from CTFd.utils.security.signing import hmac
-
-
+from CTFd.time import utcnow
 def get_current_user():
     if authed():
         user = Users.query.filter_by(id=session["id"]).first()
@@ -208,7 +207,7 @@ def get_current_user_recent_ips():
 
 @cache.memoize(timeout=300)
 def get_user_recent_ips(user_id):
-    hour_ago = datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))) - datetime.timedelta(hours=1)
+    hour_ago = utcnow() - datetime.timedelta(hours=1)
     addrs = (
         Tracking.query.with_entities(Tracking.ip.distinct())
         .filter(Tracking.user_id == user_id, Tracking.date >= hour_ago)
@@ -224,7 +223,7 @@ def get_wrong_submissions_per_minute(account_id):
     :param account_id:
     :return:
     """
-    one_min_ago = datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))) + datetime.timedelta(minutes=-1)
+    one_min_ago = utcnow() + datetime.timedelta(minutes=-1)
     fails = (
         db.session.query(Fails)
         .filter(Fails.account_id == account_id, Fails.date >= one_min_ago)

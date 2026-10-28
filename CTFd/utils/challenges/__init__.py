@@ -3,7 +3,9 @@ from collections import namedtuple
 
 from sqlalchemy import func as sa_func
 from sqlalchemy.sql import and_, false, true
-
+import os
+from zoneinfo import ZoneInfo
+from datetime import datetime
 from CTFd.cache import cache
 from CTFd.models import Challenges, Solves, Users, db
 from CTFd.schemas.tags import TagSchema
@@ -57,7 +59,7 @@ def get_solves_for_challenge_id(challenge_id, freeze=False):
     # affects of changing the relationship lazy attribute would be
     solves = (
         Solves.query.add_columns(Model.name.label("account_name"))
-        .join(Model, Solves.account_id == Model.id)
+        .join(Model, Solves.account_id == vModel.id)
         .filter(
             Solves.challenge_id == challenge_id,
             Model.banned == False,
@@ -68,7 +70,7 @@ def get_solves_for_challenge_id(challenge_id, freeze=False):
     if freeze:
         freeze_time = get_config("freeze")
         if freeze_time:
-            dt = datetime.datetime.utcfromtimestamp(freeze_time)
+            dt = datetime.fromtimestamp(freeze_time, tz=ZoneInfo(os.getenv("TZ", "UTC")))
             solves = solves.filter(Solves.date < dt)
     results = []
 

@@ -8,7 +8,7 @@ import tempfile
 import zipfile
 from io import BytesIO, StringIO
 from pathlib import Path
-
+from zoneinfo import ZoneInfo
 import dataset
 from flask import current_app as app
 from flask_migrate import upgrade as migration_upgrade
@@ -185,7 +185,7 @@ def import_ctf(backup, erase=True):
             "The version of CTFd that this backup is from is too old to be automatically imported."
         )
 
-    start_time = unix_time(datetime.datetime.utcnow())
+    start_time = unix_time(datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))))
 
     set_import_start_time(value=start_time, skip_print=True)
     set_import_end_time(value=None, skip_print=True)
@@ -472,7 +472,7 @@ def import_ctf(backup, erase=True):
 
     # Set config variables to mark import completed
     set_import_start_time(value=start_time, skip_print=True)
-    set_import_end_time(value=unix_time(datetime.datetime.utcnow()), skip_print=True)
+    set_import_end_time(value=unix_time(datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC")))), skip_print=True)
 
 
 def background_import_ctf(backup):

@@ -1,8 +1,10 @@
 import uuid
-from datetime import datetime
+import datetime
 
 from CTFd.utils import get_config
 from CTFd.models import db
+from zoneinfo import ZoneInfo
+import os
 from CTFd.plugins.dynamic_challenges import DynamicChallenge
 
 
@@ -55,7 +57,7 @@ class WhaleContainer(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(None, db.ForeignKey("users.id"))
     challenge_id = db.Column(None, db.ForeignKey("challenges.id"))
-    start_time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    start_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))))
     renew_count = db.Column(db.Integer, nullable=False, default=0)
     status = db.Column(db.Integer, default=1)
     uuid = db.Column(db.String(256))
@@ -79,7 +81,7 @@ class WhaleContainer(db.Model):
     def __init__(self, user_id, challenge_id):
         self.user_id = user_id
         self.challenge_id = challenge_id
-        self.start_time = datetime.now()
+        self.start_time = datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC")))
         self.renew_count = 0
         self.uuid = str(uuid.uuid4())
         template = get_config(

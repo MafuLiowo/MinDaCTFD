@@ -6,7 +6,7 @@ import sys
 from flask import abort, redirect, render_template, request, session, url_for
 from sqlalchemy.exc import IntegrityError, InvalidRequestError
 from werkzeug.middleware.dispatcher import DispatcherMiddleware
-
+from zoneinfo import ZoneInfo
 from CTFd.cache import clear_user_recent_ips
 from CTFd.exceptions import UserNotFoundException, UserTokenExpiredException
 from CTFd.models import Tracking, db
@@ -249,7 +249,7 @@ def init_request_processors(app):
                 ).first()
 
                 if track:
-                    track.date = datetime.datetime.utcnow()
+                    track.date = datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC")))
                 else:
                     track = Tracking(ip=get_ip(), user_id=session["id"])
                     db.session.add(track)

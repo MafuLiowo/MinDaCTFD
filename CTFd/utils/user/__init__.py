@@ -4,7 +4,8 @@ import re
 from flask import abort
 from flask import current_app as app
 from flask import redirect, request, session, url_for
-
+from zoneinfo import ZoneInfo
+import os
 from CTFd.cache import cache, clear_user_session
 from CTFd.constants.languages import Languages
 from CTFd.constants.teams import TeamAttrs
@@ -207,7 +208,7 @@ def get_current_user_recent_ips():
 
 @cache.memoize(timeout=300)
 def get_user_recent_ips(user_id):
-    hour_ago = datetime.datetime.utcnow() - datetime.timedelta(hours=1)
+    hour_ago = datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))) - datetime.timedelta(hours=1)
     addrs = (
         Tracking.query.with_entities(Tracking.ip.distinct())
         .filter(Tracking.user_id == user_id, Tracking.date >= hour_ago)
@@ -223,7 +224,7 @@ def get_wrong_submissions_per_minute(account_id):
     :param account_id:
     :return:
     """
-    one_min_ago = datetime.datetime.utcnow() + datetime.timedelta(minutes=-1)
+    one_min_ago = datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))) + datetime.timedelta(minutes=-1)
     fails = (
         db.session.query(Fails)
         .filter(Fails.account_id == account_id, Fails.date >= one_min_ago)

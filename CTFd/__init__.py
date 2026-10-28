@@ -1,10 +1,10 @@
-import datetime
 import os
 import sys
 import time
+from datetime import datetime, UTC
 import weakref
 from distutils.version import StrictVersion
-
+from zoneinfo import ZoneInfo
 import jinja2
 from flask import Flask, Request
 from flask_babel import Babel
@@ -56,7 +56,7 @@ class CTFdFlask(Flask):
         self.request_class = CTFdRequest
 
         # Store server start time
-        self.start_time = datetime.datetime.utcnow()
+        self.start_time = datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC")))
 
         # Create generally unique run identifier
         self.run_id = sha256(str(self.start_time))[0:8]

@@ -1,10 +1,10 @@
 import datetime
 import shutil
 from pathlib import Path
-
+import os
 import click
 from flask import Blueprint, current_app
-
+from zoneinfo import ZoneInfo
 from CTFd.utils import get_config as get_config_util
 from CTFd.utils import set_config as set_config_util
 from CTFd.utils.config import ctf_name
@@ -61,7 +61,7 @@ def export_ctf(path):
             shutil.copyfileobj(backup, target)
     else:
         name = ctf_name()
-        day = datetime.datetime.now().strftime("%Y-%m-%d_%T")
+        day = datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))).strftime("%Y-%m-%d_%T")
         full_name = f"{name}.{day}.zip"
 
         with open(full_name, "wb") as target:
@@ -85,7 +85,7 @@ def import_ctf(path, delete_import_on_finish=False):
         from CTFd.utils.dates import unix_time
 
         set_import_error("Import Failure: " + str(e))
-        set_import_end_time(value=unix_time(datetime.datetime.utcnow()))
+        set_import_end_time(value=unix_time(datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC")))))
 
     if delete_import_on_finish:
         print(f"Deleting {path}")

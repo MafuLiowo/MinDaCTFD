@@ -1,6 +1,6 @@
 import datetime
 import os
-
+from zoneinfo import ZoneInfo
 from flask import session
 
 from CTFd.cache import clear_user_session
@@ -51,7 +51,7 @@ def generate_user_token(user, expiration=None, description=None):
 def lookup_user_token(token):
     token = UserTokens.query.filter_by(value=token).first()
     if token:
-        if datetime.datetime.utcnow() >= token.expiration:
+        if datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))) >= token.expiration:
             raise UserTokenExpiredException
         return token.user
     else:

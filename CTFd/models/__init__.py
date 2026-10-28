@@ -5,8 +5,9 @@ from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.compiler import compiles
 from sqlalchemy.ext.hybrid import hybrid_property
+from zoneinfo import ZoneInfo                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 from sqlalchemy.orm import column_property, validates
-
+import os
 from CTFd.cache import cache
 
 db = SQLAlchemy()
@@ -57,7 +58,7 @@ class Notifications(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text)
     content = db.Column(db.Text)
-    date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    date = db.Column(db.DateTime, default=datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     team_id = db.Column(db.Integer, db.ForeignKey("teams.id"))
 
@@ -226,7 +227,7 @@ class Awards(db.Model):
     type = db.Column(db.String(80), default="standard")
     name = db.Column(db.String(80))
     description = db.Column(db.Text)
-    date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    date = db.Column(db.DateTime, default=datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))))
     value = db.Column(db.Integer)
     category = db.Column(db.String(80))
     icon = db.Column(db.Text)
@@ -386,7 +387,7 @@ class Users(db.Model):
         back_populates="user",
     )
 
-    created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    created = db.Column(db.DateTime, default=datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))))
 
     __mapper_args__ = {"polymorphic_identity": "user", "polymorphic_on": type}
 
@@ -613,7 +614,7 @@ class Teams(db.Model):
         back_populates="team",
     )
 
-    created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    created = db.Column(db.DateTime, default=datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))))
 
     def __init__(self, **kwargs):
         super(Teams, self).__init__(**kwargs)
@@ -837,7 +838,7 @@ class Submissions(db.Model):
     ip = db.Column(db.String(46))
     provided = db.Column(db.Text)
     type = db.Column(db.String(32))
-    date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    date = db.Column(db.DateTime, default=datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))))
 
     # Relationships
     user = db.relationship("Users", foreign_keys="Submissions.user_id", lazy="select")
@@ -926,7 +927,7 @@ class Unlocks(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"))
     team_id = db.Column(db.Integer, db.ForeignKey("teams.id", ondelete="CASCADE"))
     target = db.Column(db.Integer)
-    date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    date = db.Column(db.DateTime, default=datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))))
     type = db.Column(db.String(32))
 
     __mapper_args__ = {"polymorphic_on": type}
@@ -955,7 +956,7 @@ class Tracking(db.Model):
     type = db.Column(db.String(32))
     ip = db.Column(db.String(46))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"))
-    date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    date = db.Column(db.DateTime, default=datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))))
 
     user = db.relationship("Users", foreign_keys="Tracking.user_id", lazy="select")
 
@@ -983,10 +984,10 @@ class Tokens(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String(32))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"))
-    created = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    created = db.Column(db.DateTime, default=datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))))
     expiration = db.Column(
         db.DateTime,
-        default=lambda: datetime.datetime.utcnow() + datetime.timedelta(days=30),
+        default=lambda: datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))) + datetime.timedelta(days=30),
     )
     description = db.Column(db.Text)
     value = db.Column(db.String(128), unique=True)
@@ -1011,7 +1012,7 @@ class Comments(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String(80), default="standard")
     content = db.Column(db.Text)
-    date = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    date = db.Column(db.DateTime, default=datetime.datetime.now(tz=ZoneInfo(os.getenv("TZ", "UTC"))))
     author_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"))
     author = db.relationship("Users", foreign_keys="Comments.author_id", lazy="select")
 

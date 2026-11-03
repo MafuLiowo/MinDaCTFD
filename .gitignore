@@ -80,3 +80,6 @@ node_modules/
 
 # Flask Profiler files
 flask_profiler.sql
+CTF-D/min-da-ctfd/CTFd/themes/admin/node_modules/
+CTF-D/min-da-ctfd/CTFd/themes/admin/vite.config.js
+CTF-D/min-da-ctfd/CTFd/themes/admin/yarn.lock

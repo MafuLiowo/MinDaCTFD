@@ -354,7 +354,7 @@ def private():
     score = team.get_score(admin=True)
 
     if config.is_scoreboard_frozen():
-        infos.append("Scoreboard has been frozen")
+        infos.append("计分板已被冻结")
 
     return render_template(
         "teams/private.html",
@@ -388,7 +388,7 @@ def public(team_id):
         return render_template("teams/public.html", team=team, errors=errors)
 
     if config.is_scoreboard_frozen():
-        infos.append("Scoreboard has been frozen")
+        infos.append("计分板已冻结")
 
     return render_template(
         "teams/public.html",

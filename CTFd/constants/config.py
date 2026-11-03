@@ -7,45 +7,45 @@ from CTFd.utils import get_config
 
 
 class ConfigTypes(str, RawEnum):
-    CHALLENGE_VISIBILITY = "challenge_visibility"
-    SCORE_VISIBILITY = "score_visibility"
-    ACCOUNT_VISIBILITY = "account_visibility"
-    REGISTRATION_VISIBILITY = "registration_visibility"
+    CHALLENGE_VISIBILITY = "题目可见性"
+    SCORE_VISIBILITY = "分数可见性"
+    ACCOUNT_VISIBILITY = "账户可见性"
+    REGISTRATION_VISIBILITY = "是否可注册"
 
 
 @JinjaEnum
 class UserModeTypes(str, RawEnum):
-    USERS = "users"
-    TEAMS = "teams"
+    USERS = "个人"
+    TEAMS = "团队"
 
 
 @JinjaEnum
 class ChallengeVisibilityTypes(str, RawEnum):
-    PUBLIC = "public"
-    PRIVATE = "private"
-    ADMINS = "admins"
+    PUBLIC = "公开"
+    PRIVATE = "不公开"
+    ADMINS = "仅管理员"
 
 
 @JinjaEnum
 class ScoreVisibilityTypes(str, RawEnum):
-    PUBLIC = "public"
-    PRIVATE = "private"
-    HIDDEN = "hidden"
-    ADMINS = "admins"
+    PUBLIC = "公开"
+    PRIVATE = "不公开"
+    HIDDEN = "隐藏"
+    ADMINS = "仅管理员"
 
 
 @JinjaEnum
 class AccountVisibilityTypes(str, RawEnum):
-    PUBLIC = "public"
-    PRIVATE = "private"
-    ADMINS = "admins"
+    PUBLIC = "公开"
+    PRIVATE = "不公开"
+    ADMINS = "仅管理员"
 
 
 @JinjaEnum
 class RegistrationVisibilityTypes(str, RawEnum):
-    PUBLIC = "public"
-    PRIVATE = "private"
-    MLC = "mlc"
+    PUBLIC = "公开"
+    PRIVATE = "不公开"
+    MLC = "仅MLC成员"
 
 
 class _ConfigsWrapper:

@@ -20,10 +20,10 @@ def listing():
     infos = get_infos()
 
     if config.is_scoreboard_frozen():
-        infos.append("Scoreboard has been frozen")
+        infos.append("计分板已冻结")
 
     if is_admin() is True and scores_visible() is False:
-        infos.append("Scores are not currently visible to users")
+        infos.append("分数目前对用户不可见")
 
     standings = get_standings()
     return render_template("scoreboard.html", standings=standings, infos=infos)

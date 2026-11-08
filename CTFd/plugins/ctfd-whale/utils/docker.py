@@ -70,7 +70,7 @@ class DockerUtils:
             name=f'{container.user_id}-{container.uuid}',
             env={'FLAG': container.flag},
             dns_config=docker_types.DNSConfig(nameservers=dns),
-            networks=[get_config("whale:docker_auto_connect_network", "mindactfd_frp_containers")],
+            networks=[get_config("whale:docker_auto_connect_network", "min-da-ctfd_frp_containers")],
             resources=docker_types.Resources(
                 mem_limit=DockerUtils.convert_readable_text(
                     container.challenge.memory_limit),
@@ -99,7 +99,7 @@ class DockerUtils:
         )
 
         dns = []
-        containers = get_config("whale:docker_auto_connect_containers", "mindactfd-frpc-1").split(",")
+        containers = get_config("whale:docker_auto_connect_containers", "min-da-ctfd-frpc-1").split(",")
         for c in containers:
             if not c:
                 continue
@@ -158,7 +158,7 @@ class DockerUtils:
 
         networks = DockerUtils.client.networks.list(names=[whale_id])
         if len(networks) > 0:
-            auto_containers = get_config("whale:docker_auto_connect_containers", "mindactfd-frpc-1").split(",")
+            auto_containers = get_config("whale:docker_auto_connect_containers", "min-da-ctfd-frpc-1").split(",")
             redis_util = CacheProvider(app=current_app)
             for network in networks:
                 for container in auto_containers:

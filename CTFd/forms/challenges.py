@@ -23,8 +23,8 @@ class ChallengeSearchForm(BaseForm):
 
 class ChallengeFilesUploadForm(BaseForm):
     file = MultipleFileField(
-        "Upload Files",
-        description="Attach multiple files using Control+Click or Cmd+Click.",
+        "上传文件",
+        description="使用 Control+Click 或 Cmd+Click 附加多个文件。",
         validators=[InputRequired()],
     )
-    submit = SubmitField("Upload")
+    submit = SubmitField("上传")

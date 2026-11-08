@@ -15,7 +15,7 @@
       <label
         >Tag
         <br />
-        <small class="text-muted">Type tag and press Enter</small>
+        <small class="text-muted">输入标签并按下enter</small>
       </label>
       <input
         id="tags-add-input"

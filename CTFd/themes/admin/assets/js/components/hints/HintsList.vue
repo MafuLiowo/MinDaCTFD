@@ -23,9 +23,9 @@
       <thead>
         <tr>
           <td class="text-center"><b>ID</b></td>
-          <td class="text-center"><b>Hint</b></td>
-          <td class="text-center"><b>Cost</b></td>
-          <td class="text-center"><b>Settings</b></td>
+          <td class="text-center"><b>提示</b></td>
+          <td class="text-center"><b>花费</b></td>
+          <td class="text-center"><b>设置</b></td>
         </tr>
       </thead>
       <tbody>

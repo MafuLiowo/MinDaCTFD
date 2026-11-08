@@ -2,50 +2,50 @@
 
 {% block value %}
     <div class="form-group">
-        <label for="value">Current Value<br>
+        <label for="value">当前分数<br>
             <small class="form-text text-muted">
-                This is how many points the challenge is worth right now.
+                这是题目当前的分数。
             </small>
         </label>
         <input type="number" class="form-control chal-value" name="value" value="{{ challenge.value }}" disabled>
     </div>
     <div class="form-group">
-        <label for="value">Initial Value<br>
+        <label for="value">最初的分数<br>
             <small class="form-text text-muted">
-                This is how many points the challenge was worth initially.
+                这是题目最初的分数。
             </small>
         </label>
         <input type="number" class="form-control chal-initial" name="initial" value="{{ challenge.initial }}" required>
     </div>
     <div class="form-group">
-        <label for="value">Decay Limit<br>
+        <label for="value">递减限制<br>
             <small class="form-text text-muted">
-                The amount of solves before the challenge reaches its minimum value
+                在题目达到最低分之前需要的解决次数
             </small>
         </label>
         <input type="number" class="form-control chal-decay" name="decay" value="{{ challenge.decay }}" required>
     </div>
     <div class="form-group">
-        <label for="value">Minimum Value<br>
+        <label for="value">最低分<br>
             <small class="form-text text-muted">
-                This is the lowest that the challenge can be worth
+                这是题目的最低分。
             </small>
         </label>
         <input type="number" class="form-control chal-minimum" name="minimum" value="{{ challenge.minimum }}" required>
     </div>
     <div class="form-group">
-        <label for="value">Docker Image<br>
+        <label for="value">Docker镜像<br>
             <small class="form-text text-muted">
-                The docker image used to deploy
+                用于部署的docker镜像
             </small>
         </label>
         <input type="text" class="form-control" name="docker_image" placeholder="Enter docker image name"
                required value="{{ challenge.docker_image }}">
     </div>
     <div class="form-group">
-        <label for="value">Frp Redirect Type<br>
+        <label for="value">Frp重定向类型<br>
             <small class="form-text text-muted">
-                Decide the redirect type how frp redirect traffic
+                决定frp重定向的流量的类型
             </small>
         </label>
         <select class="form-control" name="redirect_type">
@@ -54,36 +54,36 @@
         </select>
     </div>
     <div class="form-group">
-        <label for="value">Frp Redirect Port<br>
+        <label for="value">Frp重定向端口<br>
             <small class="form-text text-muted">
-                Decide which port in the instance that frp should redirect traffic for
+                决定frp重定向流量到的docker容器端口
             </small>
         </label>
         <input type="number" class="form-control" name="redirect_port" placeholder="Enter the port you want to open"
                required value="{{ challenge.redirect_port }}">
     </div>
     <div class="form-group">
-        <label for="value">Docker Container Memory Limit<br>
+        <label for="value">Docker容器内存限制<br>
             <small class="form-text text-muted">
-                The memory usage limit
+                Docker容器内存使用限制
             </small>
         </label>
         <input type="text" class="form-control" name="memory_limit" placeholder="Enter the memory limit"
                value="{{ challenge.memory_limit }}" required>
     </div>
     <div class="form-group">
-        <label for="value">Docker Container CPU Limit<br>
+        <label for="value">Docker容器CPU限制<br>
             <small class="form-text text-muted">
-                The CPU usage limit
+                Docker容器CPU使用限制
             </small>
         </label>
         <input type="number" class="form-control" name="cpu_limit" placeholder="Enter the cpu limit"
                value="{{ challenge.cpu_limit }}" required>
     </div>
     <div class="form-group">
-        <label for="value">Score Type<br>
+        <label for="value">分数类型<br>
             <small class="form-text text-muted">
-                Decide it use dynamic score or not
+                决定是否使用动态分数
             </small>
         </label>
         <select class="form-control" name="dynamic_score">

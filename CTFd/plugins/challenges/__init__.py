@@ -124,10 +124,10 @@ class BaseChallenge(object):
         for flag in flags:
             try:
                 if get_flag_class(flag.type).compare(flag, submission):
-                    return True, "Correct"
+                    return True, "正确"
             except FlagException as e:
                 return False, str(e)
-        return False, "Incorrect"
+        return False, "错误"
 
     @classmethod
     def solve(cls, user, team, challenge, request):

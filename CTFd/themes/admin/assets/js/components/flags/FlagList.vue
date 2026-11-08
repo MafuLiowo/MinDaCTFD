@@ -19,9 +19,9 @@
     <table id="flagsboard" class="table table-striped">
       <thead>
         <tr>
-          <td class="text-center"><b>Type</b></td>
+          <td class="text-center"><b>类型</b></td>
           <td class="text-center"><b>Flag</b></td>
-          <td class="text-center"><b>Settings</b></td>
+          <td class="text-center"><b>设置</b></td>
         </tr>
       </thead>
       <tbody>

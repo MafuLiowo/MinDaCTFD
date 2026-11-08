@@ -2,24 +2,24 @@
 
 {% block header %}
     <div class="alert alert-secondary" role="alert">
-        Dynamic docker challenge allows players to deploy their per-challenge standalone instances.
+        动态靶机模式允许玩家部署独立的靶机
     </div>
 {% endblock %}
 
 
 {% block value %}
     <div class="form-group">
-        <label for="value">Docker Image<br>
+        <label for="value">Docker镜像<br>
             <small class="form-text text-muted">
-                The docker image used to deploy
+                用于部署的docker镜像
             </small>
         </label>
         <input type="text" class="form-control" name="docker_image" placeholder="Enter docker image name" required>
     </div>
     <div class="form-group">
-        <label for="value">Frp Redirect Type<br>
+        <label for="value">Frp重定向类型<br>
             <small class="form-text text-muted">
-                Decide the redirect type how frp redirect traffic
+                决定frp重定向流量的类型
             </small>
         </label>
         <select class="form-control" name="redirect_type">
@@ -28,69 +28,69 @@
         </select>
     </div>
     <div class="form-group">
-        <label for="value">Frp Redirect Port<br>
+        <label for="value">Frp重定向端口<br>
             <small class="form-text text-muted">
-                Decide which port in the instance that frp should redirect traffic for
+                决定frp重定向流量到的docker容器端口
             </small>
         </label>
         <input type="number" class="form-control" name="redirect_port" placeholder="Enter the port you want to open"
                required>
     </div>
     <div class="form-group">
-        <label for="value">Docker Container Memory Limit<br>
+        <label for="value">容器内存限制<br>
             <small class="form-text text-muted">
-                The memory usage limit
+                Docker容器内存使用限制
             </small>
         </label>
         <input type="text" class="form-control" name="memory_limit" placeholder="Enter the memory limit" value="128m"
                required>
     </div>
     <div class="form-group">
-        <label for="value">Docker Container CPU Limit<br>
+        <label for="value">容器CPU限制<br>
             <small class="form-text text-muted">
-                The CPU usage limit
+                Docker容器CPU使用限制
             </small>
         </label>
         <input type="number" class="form-control" name="cpu_limit" placeholder="Enter the cpu limit" value="0.5"
                required>
     </div>
     <div class="form-group">
-        <label for="value">Initial Value<br>
+        <label for="value">最初的分数<br>
             <small class="form-text text-muted">
-                This is how many points the challenge is worth initially.
+                这是题目最初的分数
             </small>
         </label>
         <input type="number" class="form-control" name="value" placeholder="Enter value" required>
     </div>
 
     <div class="form-group">
-        <label for="value">Decay Limit<br>
+        <label for="value">递减限制<br>
             <small class="form-text text-muted">
-                The amount of solves before the challenge reaches its minimum value
+                到达最低分所需要的解题数
             </small>
         </label>
         <input type="number" class="form-control" name="decay" placeholder="Enter decay limit" required>
     </div>
 
     <div class="form-group">
-        <label for="value">Minimum Value<br>
+        <label for="value">最低分<br>
             <small class="form-text text-muted">
-                This is the lowest that the challenge can be worth
+                这是题目的最低分
             </small>
         </label>
         <input type="number" class="form-control" name="minimum" placeholder="Enter minimum value" required>
     </div>
 
     <div class="form-group">
-        <label for="value">Score Type<br>
+        <label for="value">分数类型<br>
             <small class="form-text text-muted">
-                Decide it use dynamic score or not
+                决定是否使用动态分数
             </small>
         </label>
 
         <select class="form-control" name="dynamic_score">
-            <option value="0" selected>Static Score</option>
-            <option value="1">Dynamic Score</option>
+            <option value="0" selected>静态分数</option>
+            <option value="1">动态分数</option>
         </select>
     </div>
 {% endblock %}

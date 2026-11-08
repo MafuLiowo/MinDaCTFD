@@ -133,6 +133,8 @@
 		</div>
 	</footer>
 
+	<script defer src="{{ url_for('views.themes_beta', theme='core', path='js/notification-bridge.js') }}?v=6"></script>
+
 	{% block entrypoint %}
 		{{ Assets.js("assets/js/pages/main.js", theme="admin") }}
 	{% endblock %}

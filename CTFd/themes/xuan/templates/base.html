@@ -193,6 +193,7 @@
 	<script defer src="{{ url_for('views.themes', path='js/vendor.bundle.js') }}"></script>
 	<script defer src="{{ url_for('views.themes', path='js/core.js') }}"></script>
 	<script defer src="{{ url_for('views.themes', path='js/helpers.js') }}"></script>
+	<script defer src="{{ url_for('views.themes_beta', theme='core', path='js/notification-bridge.js') }}?v=6"></script>
 
 	{% block entrypoint %}
 	<script defer src="{{ url_for('views.themes', path='js/pages/main.js') }}"></script>

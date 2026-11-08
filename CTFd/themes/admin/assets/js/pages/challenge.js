@@ -240,8 +240,8 @@ $(() => {
         // Check if the challenge doesn't have any flags before marking visible
         if (response.data.length === 0 && params.state === "visible") {
           ezQuery({
-            title: "Missing Flags",
-            body: "This challenge does not have any flags meaning it may be unsolveable. Are you sure you'd like to update this challenge?",
+            title: "缺少flag",
+            body: "这个题目还没有填写静态flag，你确定要继续更新题目的配置吗？如果是动态的则可以忽略这个提示。",
             success: update_challenge,
           });
         } else {

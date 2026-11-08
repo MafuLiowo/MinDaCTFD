@@ -84,7 +84,7 @@ class UserContainers(Resource):
             'success': True,
             'data': {
                 'lan_domain': (
-                    "http://"+f"{get_config('whale:frp_direct_ip_address', '127.0.0.1')}:{container.port}"
+                    f"{get_config('whale:frp_direct_ip_address', '127.0.0.1')}:{container.port}"
                 ),
                 'user_access': Router.access(container),
                 'remaining_time': timeout - (utcnow() - container.start_time).seconds,

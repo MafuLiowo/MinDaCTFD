@@ -31,9 +31,9 @@
 				{{ form.score_visibility.description }}
 			</small>
 			<small class="form-text text-muted py-2">
-				Score Visibility is a subset of Account Visibility. 
-				This means that if accounts are visible to a user then score visibility will control whether they can see the score of that user. 
-				If accounts are not visibile then score visibility has no effect.
+				这个分数显示选项会作用在全部
+				这意味着如果账号没被隐藏那么他将会受到这个选项影响
+				如果账号被隐藏，那这个选项无用
 			</small>
 		</div>
 
@@ -45,7 +45,7 @@
 			</small>
 		</div>
 
-		<button type="submit" class="btn btn-md btn-primary float-right">Update</button>
+		<button type="submit" class="btn btn-md btn-primary float-right">更新</button>
 	</form>
 	{% endwith %}
 </div>

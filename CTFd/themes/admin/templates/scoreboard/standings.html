@@ -6,10 +6,10 @@
 					<input type="checkbox" class="form-check-input" id="scoreboard-bulk-select" autocomplete="off" data-checkbox-all>&nbsp;
 				</div>
 			</th>
-			<th class="sort-col text-center"><b>Place</b></th>
+			<th class="sort-col text-center"><b>名次</b></th>
 			<th class="sort-col"><b>{{ get_mode_as_word(capitalize=True) }}</b></th>
-			<th class="sort-col"><b>Score</b></th>
-			<th class="sort-col"><b>Visibility</b></th>
+			<th class="sort-col"><b>分数</b></th>
+			<th class="sort-col"><b>可见性</b></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -27,11 +27,11 @@
 					{% if standing.oauth_id %}
 						{% if get_config('user_mode') == 'teams' %}
 							<a href="https://majorleaguecyber.org/t/{{ standing.name }}">
-								<span class="badge badge-primary">Official</span>
+								<span class="badge badge-primary">官方</span>
 							</a>
 						{% elif get_config('user_mode') == 'users' %}
 							<a href="https://majorleaguecyber.org/u/{{ standing.name }}">
-								<span class="badge badge-primary">Official</span>
+								<span class="badge badge-primary">官方</span>
 							</a>
 						{% endif %}
 					{% endif %}
@@ -40,9 +40,9 @@
 			<td>{{ standing.score }}</td>
 			<td>
 				{% if standing.hidden %}
-					<span class="badge badge-danger">hidden</span>
+					<span class="badge badge-danger">隐藏</span>
 				{% else %}
-					<span class="badge badge-success">visible</span>
+					<span class="badge badge-success">可见</span>
 				{% endif %}
 			</td>
 		</tr>

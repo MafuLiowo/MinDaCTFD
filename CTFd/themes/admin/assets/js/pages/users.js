@@ -11,8 +11,8 @@ function deleteSelectedUsers(_event) {
   let target = userIDs.length === 1 ? "user" : "users";
 
   ezQuery({
-    title: "Delete Users",
-    body: `Are you sure you want to delete ${userIDs.length} ${target}?`,
+    title: "删除用户",
+    body: `你确定要删除 ${userIDs.length} ${target} 吗？`,
     success: function () {
       const reqs = [];
       for (var userID of userIDs) {

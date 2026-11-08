@@ -15,7 +15,7 @@
             type="submit"
             @click="submitComment()"
           >
-            Comment
+            评论
           </button>
         </div>
       </div>

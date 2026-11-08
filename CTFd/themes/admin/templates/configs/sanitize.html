@@ -3,26 +3,26 @@
 	<form method="POST" autocomplete="off" class="w-100">
 		<div class="form-group">
 			<label for="html_sanitization">
-				HTML Sanitization
+				HTML净化
 				<small class="form-text text-muted">
-					Whether CTFd will attempt to sanitize HTML content from content.
+					CTFd是否会尝试净化HTML中的内容
 				</small>
 			</label>
 			<select class="form-control custom-select" name="html_sanitization">
 				{% if force_html_sanitization %}
 				<option>
-					Required (Disable in config.ini)
+					需要 (在config.ini关闭)
 				</option>
 				{% else %}
 				<option value="true" {% if html_sanitization=='true' %}selected{% endif %}>
-					Enabled
+					开启
 				</option>
 				<option value="false" {% if html_sanitization=='false' %}selected{% endif %}>
-					Disabled
+					关闭
 				</option>
 				{% endif %}
 			</select>
 		</div>
-		<button type="submit" class="btn btn-md btn-primary float-right">Update</button>
+		<button type="submit" class="btn btn-md btn-primary float-right">更新</button>
 	</form>
 </div>

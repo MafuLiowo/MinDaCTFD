@@ -8,7 +8,7 @@ def LanguageForm(*args, **kwargs):
     from CTFd.utils.user import get_locale
 
     class _LanguageForm(BaseForm):
-        """Language form for only switching langauge without rendering all profile settings"""
+        """仅用于切换语言而不显示所有账户语言配置"""
 
         language = RadioField(
             "",

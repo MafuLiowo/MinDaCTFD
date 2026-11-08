@@ -2,13 +2,13 @@
 	<form method="POST" autocomplete="off" class="w-100">
 		<div class="form-group">
 			<label for="ctf_name">
-				Registration Code
-				<small class="form-text text-muted">Registration Code required for account registration (SSO excluded)</small>
+				邀请码
+				<small class="form-text text-muted">注册需要邀请码 (SSO 除外)</small>
 			</label>
-			<input class="form-control" id='registration_code' name='registration_code' type='text' placeholder="Registration Code"
+			<input class="form-control" id='registration_code' name='registration_code' type='text' placeholder="邀请码"
 				{% if registration_code is defined and registration_code != None %}value="{{ registration_code }}"{% endif %}>
 		</div>
 
-		<button type="submit" class="btn btn-md btn-primary float-right">Update</button>
+		<button type="submit" class="btn btn-md btn-primary float-right">更新</button>
 	</form>
 </div>

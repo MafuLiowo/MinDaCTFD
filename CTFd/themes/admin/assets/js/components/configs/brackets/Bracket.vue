@@ -14,36 +14,35 @@
     <div class="row">
       <div class="col-md-9">
         <div class="form-group">
-          <label>Bracket Name</label>
+          <label>分组名</label>
           <input type="text" class="form-control" v-model.lazy="bracket.name" />
           <small class="form-text text-muted">
-            Bracket name (e.g. "Students", "Interns", "Engineers")
+            分组名(比如“学生", "老师", "社会人员")
           </small>
         </div>
       </div>
 
       <div class="col-md-12">
         <div class="form-group">
-          <label>Bracket Description</label>
+          <label>分组描述</label>
           <input
             type="text"
             class="form-control"
             v-model.lazy="bracket.description"
           />
-          <small class="form-text text-muted">Bracket Description</small>
+          <small class="form-text text-muted">分组描述</small>
         </div>
       </div>
 
       <div class="col-md-12">
-        <label>Bracket Type</label>
+        <label>分组类型</label>
         <select class="custom-select" v-model.lazy="bracket.type">
           <option></option>
-          <option value="users">Users</option>
-          <option value="teams">Teams</option>
+          <option value="users">用户</option>
+          <option value="teams">队伍</option>
         </select>
         <small class="form-text text-muted">
-          If you are using Team Mode and would like the bracket to apply to
-          entire teams instead of individuals, select Teams.
+          如果你使用团队模式并且希望分组应用于团队，请选择队伍。
         </small>
       </div>
     </div>
@@ -56,7 +55,7 @@
             type="button"
             @click="saveBracket()"
           >
-            Save
+            保存
           </button>
         </div>
       </div>
@@ -92,11 +91,11 @@ export default {
       if (this.persisted()) {
         url = `/api/v1/brackets/${this.bracket.id}`;
         method = "PATCH";
-        message = "Bracket has been updated!";
+        message = "分组已更新!";
       } else {
         url = `/api/v1/brackets`;
         method = "POST";
-        message = "Bracket has been created!";
+        message = "分组已创建!";
       }
       CTFd.fetch(url, {
         method: method,

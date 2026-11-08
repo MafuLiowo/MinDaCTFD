@@ -12,45 +12,45 @@ from CTFd.utils.security.email import (
 
 PROVIDERS = {"smtp": SMTPEmailProvider, "mailgun": MailgunEmailProvider}
 
-DEFAULT_VERIFICATION_EMAIL_SUBJECT = "Confirm your account for {ctf_name}"
+DEFAULT_VERIFICATION_EMAIL_SUBJECT = "确认创建用户 {ctf_name}"
 DEFAULT_VERIFICATION_EMAIL_BODY = (
-    "Welcome to {ctf_name}!\n\n"
-    "Click the following link to confirm and activate your account:\n"
+    "欢迎{ctf_name}!\n\n"
+    "点击下列链接确认注册:\n"
     "{url}"
     "\n\n"
-    "If the link is not clickable, try copying and pasting it into your browser."
+    "如果链接不可点击，请复制到浏览器打开"
 )
-DEFAULT_SUCCESSFUL_REGISTRATION_EMAIL_SUBJECT = "Successfully registered for {ctf_name}"
+DEFAULT_SUCCESSFUL_REGISTRATION_EMAIL_SUBJECT = "成功注册用户{ctf_name}"
 DEFAULT_SUCCESSFUL_REGISTRATION_EMAIL_BODY = (
-    "You've successfully registered for {ctf_name}!"
+    "你已经成功注册了{ctf_name}!"
 )
-DEFAULT_USER_CREATION_EMAIL_SUBJECT = "Message from {ctf_name}"
+DEFAULT_USER_CREATION_EMAIL_SUBJECT = "来自{ctf_name}的信息"
 DEFAULT_USER_CREATION_EMAIL_BODY = (
-    "A new account has been created for you for {ctf_name} at {url}. \n\n"
-    "Username: {name}\n"
-    "Password: {password}"
+    "一个新的名叫{ctf_name}的账户在{url}完成注册. \n\n"
+    "用户名:{name}\n"
+    "密码:{password}"
 )
-DEFAULT_PASSWORD_RESET_SUBJECT = "Password Reset Request from {ctf_name}"
+DEFAULT_PASSWORD_RESET_SUBJECT = "来自{ctf_name}的密码重置"
 DEFAULT_PASSWORD_RESET_BODY = (
-    "Did you initiate a password reset on {ctf_name}? "
-    "If you didn't initiate this request you can ignore this email. \n\n"
-    "Click the following link to reset your password:\n{url}\n\n"
-    "If the link is not clickable, try copying and pasting it into your browser."
+    "你确定要重置{ctf_name}的密码吗? "
+    "如果你没有重置密码，请忽略这封邮件 \n\n"
+    "点击链接重置密码\n{url}\n\n"
+    "如果链接点不了，请复制到浏览器打开"
 )
-DEFAULT_PASSWORD_CHANGE_ALERT_SUBJECT = "Password Change Confirmation for {ctf_name}"
+DEFAULT_PASSWORD_CHANGE_ALERT_SUBJECT = "确认为{ctf_name}重置密码"
 DEFAULT_PASSWORD_CHANGE_ALERT_BODY = (
-    "Your password for {ctf_name} has been changed.\n\n"
-    "If you didn't request a password change you can reset your password here:\n{url}\n\n"
-    "If the link is not clickable, try copying and pasting it into your browser."
+    "用户名{ctf_name}的密码已成功重置\n\n"
+    "如果你没有要求更改密码或者被盗号了，可以在这里重置密码\n{url}\n\n"
+    "如果链接点不了，请复制到浏览器打开"
 )
 
 
-def sendmail(addr, text, subject="Message from {ctf_name}"):
+def sendmail(addr, text, subject="来自{ctf_name}的信息"):
     subject = safe_format(subject, ctf_name=get_config("ctf_name"))
     provider = get_mail_provider()
     EmailProvider = PROVIDERS.get(provider)
     if EmailProvider is None:
-        return False, "No mail settings configured"
+        return False, "未配置邮箱信息"
     return EmailProvider.sendmail(addr, text, subject)
 
 

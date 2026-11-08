@@ -105,8 +105,8 @@ def attach_registration_code_field(form_cls):
             form_cls,
             "registration_code",
             StringField(
-                "Registration Code",
-                description="Registration code required to create account",
+                "邀请码",
+                description="注册需要邀请码",
                 validators=[InputRequired()],
             ),
         )
@@ -130,8 +130,8 @@ def attach_user_bracket_field(form_cls):
             for bracket in brackets
         ]
         select_field = SelectField(
-            "Bracket",
-            description="Competition bracket for your user",
+            "分组",
+            description="用户的比赛分组",
             choices=choices,
             validators=[InputRequired()],
         )

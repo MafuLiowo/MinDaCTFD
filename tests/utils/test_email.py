@@ -194,7 +194,7 @@ def test_verify_email(mock_smtp):
         ctf_name = get_config("ctf_name")
         email_msg = EmailMessage()
         email_msg.set_content(msg)
-        email_msg["Subject"] = "Confirm your account for {ctf_name}".format(
+        email_msg["Subject"] = "确认创建用户 {ctf_name}".format(
             ctf_name=ctf_name
         )
         email_msg["From"] = from_addr
@@ -231,7 +231,7 @@ def test_successful_registration_email(mock_smtp):
 
         email_msg = EmailMessage()
         email_msg.set_content(msg)
-        email_msg["Subject"] = "Successfully registered for {ctf_name}".format(
+        email_msg["Subject"] = "成功为{ctf_name}注册".format(
             ctf_name=ctf_name
         )
         email_msg["From"] = from_addr

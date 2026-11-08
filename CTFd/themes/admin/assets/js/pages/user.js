@@ -123,8 +123,8 @@ function updateUser(event) {
 function deleteUser(event) {
   event.preventDefault();
   ezQuery({
-    title: "Delete User",
-    body: "Are you sure you want to delete {0}".format(
+    title: "删除用户",
+    body: "你确定要删除 {0} 吗？".format(
       "<strong>" + htmlEntities(window.USER_NAME) + "</strong>",
     ),
     success: function () {
@@ -201,7 +201,7 @@ function emailUser(event) {
         $("#user-mail-form > #results").append(
           ezBadge({
             type: "success",
-            body: "E-Mail sent successfully!",
+            body: "邮件发送成功！",
           }),
         );
         $("#user-mail-form").find("input[type=text], textarea").val("");
@@ -234,7 +234,7 @@ function correctSubmissions(_event) {
 
   ezQuery({
     title: "Correct Submissions",
-    body: `Are you sure you want to mark ${submissionIDs.length} ${target} correct?`,
+    body: `你确定你想标记 ${submissionIDs.length} ${target} 为成功吗?`,
     success: function () {
       const reqs = [];
       for (var subId of submissionIDs) {
@@ -264,12 +264,12 @@ function deleteSelectedSubmissions(event, target) {
     case "solves":
       submissions = $("input[data-submission-type=correct]:checked");
       type = "solve";
-      title = "Solves";
+      title = "解出";
       break;
     case "fails":
       submissions = $("input[data-submission-type=incorrect]:checked");
       type = "fail";
-      title = "Fails";
+      title = "失败";
       break;
     default:
       break;
@@ -302,8 +302,8 @@ function deleteSelectedAwards(_event) {
   let target = awardIDs.length === 1 ? "award" : "awards";
 
   ezQuery({
-    title: `Delete Awards`,
-    body: `Are you sure you want to delete ${awardIDs.length} ${target}?`,
+    title: `删除奖励`,
+    body: `你确定要删除 ${awardIDs.length} ${target} 吗？`,
     success: function () {
       const reqs = [];
       for (var awardID of awardIDs) {
@@ -335,14 +335,14 @@ function solveSelectedMissingChallenges(event) {
 
   ezQuery({
     title: `Mark Correct`,
-    body: `Are you sure you want to mark ${
+    body: `你确定要将 ${
       challengeIDs.length
-    } ${target} correct for ${htmlEntities(window.USER_NAME)}?`,
+    }${target}为${htmlEntities(window.USER_NAME)}标记为正确吗?`,
     success: function () {
       const reqs = [];
       for (var challengeID of challengeIDs) {
         let params = {
-          provided: "MARKED AS SOLVED BY ADMIN",
+          provided: "被管理员标记为已解出",
           user_id: window.USER_ID,
           team_id: window.TEAM_ID,
           challenge_id: challengeID,

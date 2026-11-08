@@ -14,37 +14,37 @@
     <div class="row">
       <div class="col-md-3">
         <div class="form-group">
-          <label>Field Type</label>
+          <label>字段类型</label>
           <select
             class="form-control custom-select"
             v-model.lazy="field.field_type"
           >
-            <option value="text">Text Field</option>
-            <option value="boolean">Checkbox</option>
+            <option value="text">文字</option>
+            <option value="boolean">是否</option>
           </select>
           <small class="form-text text-muted"
-            >Type of field shown to the user</small
+            >展示给其他用户的字段类型</small
           >
         </div>
       </div>
       <div class="col-md-9">
         <div class="form-group">
-          <label>Field Name</label>
+          <label>字段名</label>
           <input type="text" class="form-control" v-model.lazy="field.name" />
-          <small class="form-text text-muted">Field name</small>
+          <small class="form-text text-muted">字段名</small>
         </div>
       </div>
 
       <div class="col-md-12">
         <div class="form-group">
-          <label>Field Description</label>
+          <label>字段描述</label>
           <input
             type="text"
             class="form-control"
             v-model.lazy="field.description"
           />
           <small id="emailHelp" class="form-text text-muted"
-            >Field Description</small
+            >字段描述</small
           >
         </div>
       </div>
@@ -57,7 +57,7 @@
               type="checkbox"
               v-model.lazy="field.editable"
             />
-            Editable by user in profile
+            在个人资料里是否可更改
           </label>
         </div>
         <div class="form-check">
@@ -67,7 +67,7 @@
               type="checkbox"
               v-model.lazy="field.required"
             />
-            Required on registration
+            注册时需要填写
           </label>
         </div>
         <div class="form-check">
@@ -77,7 +77,7 @@
               type="checkbox"
               v-model.lazy="field.public"
             />
-            Shown on public profile
+            展示在公开资料
           </label>
         </div>
       </div>

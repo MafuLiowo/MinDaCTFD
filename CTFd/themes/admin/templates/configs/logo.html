@@ -2,9 +2,9 @@
 	<form id="logo-upload" class="form-upload" method="POST" enctype="multipart/form-data">
 		<div class="form-group">
 			<label for="ctf_logo">
-				Logo
+				图标
 				<small class="form-text text-muted">
-					Logo to use for the website instead of a CTF name.
+					用于网站的logo
 				</small>
 			</label>
 
@@ -14,7 +14,7 @@
 						 src="{{ url_for('views.files', path=ctf_logo) }}"
 						 height="80">
 					<button type="button" id="remove-logo" class="btn-sm btn-danger">
-						Remove Logo
+						移除logo
 					</button>
 				</div>
 			{% endif %}
@@ -37,9 +37,9 @@
 	<form id="ctf-small-icon-upload" class="form-upload" method="POST" enctype="multipart/form-data">
 		<div class="form-group">
 			<label for="small_icon">
-				Tab Icon
+				标签图标
 				<small class="form-text text-muted">
-					Used as the <a href='https://en.wikipedia.org/wiki/Favicon' target='_blank'>favicon</a>. Only PNGs accepted. Must be 32x32px.
+					作为<a href='https://en.wikipedia.org/wiki/Favicon' target='_blank'>图标</a>使用. 只接受PNG格式且必须是32x32像素px的.
 				</small>
 			</label>
 
@@ -49,7 +49,7 @@
 						 src="{{ url_for('views.files', path=ctf_small_icon) }}"
 						 height="32">
 					<button type="button" id="remove-small-icon" class="btn-sm btn-danger">
-						Remove Icon
+						移除标签图标
 					</button>
 				</div>
 			{% endif %}
